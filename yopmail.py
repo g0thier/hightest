@@ -9,7 +9,7 @@ def format_time(timestamp):
 
 def create_random_email():
     GENERATOR_BUTTON_XPATH = '/html/body/div/div[2]/main/div/div[2]/div/div[1]/div[2]/button[1]'
-    IDENTIFIANT_XPATH = '//*[@id="geny"]/span[1]'
+    IDENTIFIER_XPATH = '//*[@id="geny"]/span[1]'
     DOMAINE_XPATH = '//*[@id="geny"]/span[2]'
 
     time_start = time.time()
@@ -33,7 +33,7 @@ def create_random_email():
 
         try:
             # Get the mail generated.
-            identifiant = driver.find_element(By.XPATH, IDENTIFIANT_XPATH)
+            identifier = driver.find_element(By.XPATH, IDENTIFIER_XPATH)
             domaine = driver.find_element(By.XPATH, DOMAINE_XPATH)
         except:
             driver.close()
@@ -45,15 +45,17 @@ def create_random_email():
                                        'end_time': format_time(time_end),
                                        'duration': round(time_end - time_start, 2)}}
         
-        if identifiant.text and domaine.text :
+        if identifier.text and domaine.text :
             # Reconstitute email.
-            email = f'{identifiant.text}@{domaine.text}'
+            identifier_email = identifier.text
+            domaine_email = domaine.text
+            email = f'{identifier_email}@{domaine_email}'
         else:
             driver.close()
 
             time_end = time.time()
             return {'status': 'error',
-                    'error_message': 'identifiant or domaine is empty.',
+                    'error_message': 'identifier or domaine is empty.',
                     'execution_time': {'start_time': format_time(time_start),
                                        'end_time': format_time(time_end),
                                        'duration': round(time_end - time_start, 2)}}
@@ -63,6 +65,8 @@ def create_random_email():
         time_end = time.time()
         return {'status': 'success',
                 'generated_email': email,
+                'identifier_email': identifier_email,
+                'domaine_email': domaine_email,
                 'execution_time': {'start_time': format_time(time_start),
                                    'end_time': format_time(time_end),
                                    'duration': round(time_end - time_start, 2)}}
@@ -75,72 +79,71 @@ def create_random_email():
                 'execution_time': {'start_time': format_time(time_start),
                                    'end_time': format_time(time_end),
                                    'duration': round(time_end - time_start, 2)}}
-    
 
-def get_cookies_of(email):
+
+def last_message_of(identifier):
+    EXPEDITOR_PATH = '/html/body/header/div[3]/div[2]/span'
+    DATE_TIME_PATH = '/html/body/header/div[3]/div[3]/span'
+    SUBJECT_PATH = '/html/body/header/div[3]/div[1]'
+    CONTENT_PATH = '//*[@id="mail"]/div/div'
+
     time_start = time.time()
     try:
         driver = webdriver.Chrome()
-        driver.get("https://yopmail.com/fr/")
+        driver.get(f'https://yopmail.com?{identifier}')
 
         try:
-            # Enter email in the placeholder.
-            input_email = driver.find_element(By.XPATH, '//*[@id="login"]')
-            input_email.send_keys(email)
+            # Wait and move to the iframe.
+            iframe = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "ifmail")))
+            driver.switch_to.frame(iframe)
         except:
             driver.close()
             
             time_end = time.time()
             return {'status': 'error',
-                    'error_message': 'impossible to enter email in placeholder, check XPath of "login" placeholder.',
+                    'error_message': 'impossible to detect the iframe, check XPath of "ifmail" ID.',
                     'execution_time': {'start_time': format_time(time_start),
                                        'end_time': format_time(time_end),
                                        'duration': round(time_end - time_start, 2)}}
-
-        try:
-            # Clic on the "➔".
-            send_button = driver.find_element(By.XPATH, '//*[@id="refreshbut"]/button')
-            send_button.click()
-        except:
-            driver.close()
             
-            time_end = time.time()
-            return {'status': 'error',
-                    'error_message': 'impossible to launch email, check XPath of "➔" button.',
-                    'execution_time': {'start_time': format_time(time_start),
-                                       'end_time': format_time(time_end),
-                                       'duration': round(time_end - time_start, 2)}}
         try:
-            cookies = driver.get_cookies()
+            # Get the message.
+            expeditor = driver.find_element(By.XPATH, EXPEDITOR_PATH)
+            date = driver.find_element(By.XPATH, DATE_TIME_PATH)
+            subject = driver.find_element(By.XPATH, SUBJECT_PATH)
+            content = driver.find_element(By.XPATH, CONTENT_PATH)
+
+            expeditor_email = expeditor.text
+            date_email = date.text
+            subject_email = subject.text
+            content_email = content.text
         except:
             driver.close()
-
+                
             time_end = time.time()
             return {'status': 'error',
-                    'error_message': 'impossible to get cookies, check driver.',
+                    'error_message': 'impossible to copy the last mail, check XPaths of expeditor, date, subject and content.',
                     'execution_time': {'start_time': format_time(time_start),
-                                       'end_time': format_time(time_end),
-                                       'duration': round(time_end - time_start, 2)}}
-        
+                                    'end_time': format_time(time_end),
+                                    'duration': round(time_end - time_start, 2)}}
+
         driver.close()
 
         time_end = time.time()
         return {'status': 'success',
-                'generated_cookies': cookies,
+                'expeditor': expeditor_email,
+                'date': date_email,
+                'subject': subject_email,
+                'content': content_email,
                 'execution_time': {'start_time': format_time(time_start),
-                                   'end_time': format_time(time_end),
-                                   'duration': round(time_end - time_start, 2)}}
+                                    'end_time': format_time(time_end),
+                                    'duration': round(time_end - time_start, 2)}}
     except:
         driver.close()
-
+            
         time_end = time.time()
         return {'status': 'error',
-                'error_message': 'impossible to access to yopmail.',
+                'error_message': 'impossible to access to yopmail mailbox.',
                 'execution_time': {'start_time': format_time(time_start),
                                    'end_time': format_time(time_end),
                                    'duration': round(time_end - time_start, 2)}}
-
- 
-def last_message_of(email):
-    print(email)
-    return 'some html text'

@@ -38,13 +38,13 @@ Notes :
 
 ### Récupération des résultats mail Yopmail
 
-**https://yopmail.com/fr/**
- * https://yopmail.com/fr/
- * Entrer l'adresse généré précédemment
- * Clic sur la flèche 
+~~**https://yopmail.com/fr/**~~
+ * ~~https://yopmail.com/fr/~~
+ * ~~Entrer l'adresse généré précédemment~~
+ * ~~Clic sur la flèche~~ 
 
-**https://yopmail.com/fr/wm**
- * Selection du message dans le corp du mail
+~~**https://yopmail.com/fr/wm**~~
+ * ~~Selection du message dans le corp du mail~~
 
 ### Sortie du rapport
  * Sortie du Rapport (format Json peu-etre)
