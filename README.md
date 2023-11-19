@@ -7,44 +7,14 @@
 ## To Do List 
 
 Notes : 
- * Garder temps d'execution 
- * Continuer grace aux adresses urls si bug pendant le processus 
+ * Garder temps d'execution
  * Faire une écriture etape par etape des réussites 
 
 ### Création mail Yopmail
 
-~~**https://yopmail.com/fr/**~~
- * ~~https://yopmail.com/fr/~~
- * ~~Clic Générer une adresse au hasard~~
- * ~~Garder l'adresse dans la barre du lien~~
-
 ### Processus sur Hightest
-
-**https://hightest.nc/**
- * https://hightest.nc/ ( check temps connexion procedure Curl peut-etre )
- * Clic Toolbox 
-
-**changement de page pour /toolbox/**
- * Clic Quiz ISTQB niveau Foundation (version 2018) -> Français 
-
-**Changement de page pour /ressources/test-istqb.php**
- * Attente Curl ou boucle ?? instruction avant test
- * Clic sur les Coches ( Check si les questions sont dans le même ordre et si les réponses sont dans le même ordre)
-    * Creer un dictionnaire clefs reponses
-    * Clic Terminé !
-    
-**Changement de page pour /ressources/reponses-test-istqb.php**
- * Entrer le mail et Clic envoyer
 
 ### Récupération des résultats mail Yopmail
 
-~~**https://yopmail.com/fr/**~~
- * ~~https://yopmail.com/fr/~~
- * ~~Entrer l'adresse généré précédemment~~
- * ~~Clic sur la flèche~~ 
-
-~~**https://yopmail.com/fr/wm**~~
- * ~~Selection du message dans le corp du mail~~
-
 ### Sortie du rapport
- * Sortie du Rapport (format Json peu-etre)
+ * Sortie du Rapport (format Json peut-etre)
