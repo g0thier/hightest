@@ -71,8 +71,14 @@ jupyter notebook automate_quiz_ISTQB_FR.ipynb
 
 ## Files
 
-- `report_quiz_ISTQB_FR.json`: Contains the results of the quiz execution.
 - `automate_quiz_ISTQB_FR.ipynb`: Jupyter script for automating the ISTQB quiz.
-- `yopmail.py`: Module for creating random email addresses and access to is mailbox.
-- `requirements.txt`: Contains the list of modules needed for the project.
+- `report_quiz_ISTQB_FR.json`: Contains the results of the quiz execution.
 - `reporting.py`: Module for generating success and error messages.
+- `requirements.txt`: Contains the list of modules needed for the project.
+- `yopmail.py`: Module for creating random email addresses and access to is mailbox.
+
+## License
+
+MIT License
+
+Copyright (c) [2023] [Gauthier Rammault]
