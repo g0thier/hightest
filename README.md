@@ -82,3 +82,10 @@ jupyter notebook automate_quiz_ISTQB_FR.ipynb
 MIT License
 
 Copyright (c) [2023] [Gauthier Rammault]
+
+## To do list / Comment 
+
+ * Attention les guidelines mentionnaient Selenium Java
+ * Les xPath pourrait être optimisés
+ * Pareil pour la gestion des jeux de données (ici le couple question/réponse)
+ * ~~En revue statique, je n'ai pas trouvé l'endroit où la vérification finale a lieu (résultats = 100%)~~
