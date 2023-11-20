@@ -8,7 +8,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 import time
 
 def create_random_email():
-    GENERATOR_BUTTON_XPATH = '/html/body/div/div[2]/main/div/div[2]/div/div[1]/div[2]/button[1]'
     IDENTIFIER_XPATH = '//*[@id="geny"]/span[1]'
     DOMAINE_XPATH = '//*[@id="geny"]/span[2]'
 
@@ -18,12 +17,11 @@ def create_random_email():
         driver.get("https://yopmail.com/fr/email-generator")
 
         try:
-            # Clic on the "Nouveau".
-            generator_button = driver.find_element(By.XPATH, GENERATOR_BUTTON_XPATH)
-            generator_button.click()
+            # Generate new mail.
+            driver.execute_script("newgen();")
         except:
             driver.close()
-            return reporting.error_message(time_start, 'impossible to generate email, check XPath of "Nouveau" button.')
+            return reporting.error_message(time_start, 'impossible to generate email, check function in "Nouveau" button.')
 
         try:
             # Get the mail generated.
@@ -54,10 +52,10 @@ def create_random_email():
         return reporting.error_message(time_start, 'impossible to access to yopmail email generator.')
 
 def last_message_of(identifier):
-    EXPEDITOR_PATH = '/html/body/header/div[3]/div[2]/span'
-    DATE_TIME_PATH = '/html/body/header/div[3]/div[3]/span'
-    SUBJECT_PATH = '/html/body/header/div[3]/div[1]'
-    CONTENT_PATH = '//*[@id="mail"]/div/div'
+    EXPEDITOR_PATH = '//header/div[3]/div[2]/span'
+    DATE_TIME_PATH = '//header/div[3]/div[3]/span'
+    SUBJECT_PATH = '//header/div[3]/div[1]'
+    CONTENT_PATH = '//*[@id="mail"]'
 
     time_start = time.time()
     try:
